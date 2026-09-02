@@ -1,0 +1,13 @@
+google-genai
+python-dotenv
+pillow
+pytest
+pypdf
+sentence-transformers
+pinecone
+langgraph
+pydantic
+streamlit
+# sentence-transformers pulls in torch — install the CPU-only build to avoid
+# the large default GPU wheel:
+#   pip install torch --index-url https://download.pytorch.org/whl/cpu
