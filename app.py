@@ -115,9 +115,13 @@ CSS = f"""
 }}
 .stDeployButton {{ display: none; }}
 
-/* === DARK BACKGROUND === */
+/* === CORE STYLES === */
+html, body {{
+    background: linear-gradient(135deg, #0a0a0f 0%, #0d0d1a 50%, #0f0a14 100%);
+}}
+
 .stApp {{
-    background: #0a0a0f;
+    background: linear-gradient(160deg, #0a0a0f 0%, #0d0d1a 40%, #0f0a14 100%) !important;
     color: #e0e0e0;
 }}
 
@@ -196,6 +200,7 @@ div[data-testid="stChatMessage"] strong {{
     border-radius: 12px !important;
     color: #e0e0e0 !important;
     font-size: 0.95rem;
+    padding-left: 12px !important;
 }}
 .stChatInput textarea:focus {{
     border-color: {ACCENT} !important;
@@ -561,137 +566,83 @@ div[data-testid="stChatMessage"] p {{
     margin-bottom: 0.5rem;
 }}
 
-/* === 3-PANEL LAYOUT === */
-.st-key-chat_scroll {{
-    height: calc(100vh - 320px) !important;
-    min-height: 260px !important;
-    flex-direction: column-reverse !important;
-    justify-content: flex-end !important;
-    overflow-y: auto !important;
-    padding-right: 0.6rem;
-    min-height: 0 !important;
+/* === PAGE LAYOUT FIX === */
+main .block-container {{
+    max-width: 100% !important;
+    padding-top: 1.2rem !important;
+    padding-bottom: 2rem !important;
+    overflow: visible !important;
 }}
-.st-key-chat_scroll > div {{
-    min-height: 0 !important;
-    overflow-y: auto !important;
-}}
-.st-key-chat_scroll::-webkit-scrollbar {{ width: 6px; }}
-.st-key-chat_scroll::-webkit-scrollbar-thumb {{
-    background: rgba({ACCENT_RGB},0.25);
-    border-radius: 3px;
-}}
-.st-key-rp_root {{ max-height: calc(100vh - 250px); overflow-y: auto; }}
-.st-key-rp_health, .st-key-rp_actions {{
-    background: rgba(255,255,255,0.02);
-    border: 1px solid rgba({ACCENT_RGB},0.08);
-    border-radius: 12px; padding: 1rem; margin-bottom: 0.6rem;
-}}
-section[data-testid="stSidebar"] [data-testid="stSidebarUserContent"] > div > .stVerticalBlock {{
-    display: flex; flex-direction: column; min-height: calc(100vh - 7rem);
-}}
-.st-key-sidebar_hero {{ position: sticky; bottom: 0; text-align: center; padding: 0.5rem 0; background: linear-gradient(180deg, rgba(10,10,15,0) 0%, #0e0e18 30%); z-index: 1; }}
-.st-key-sidebar_hero img {{
-    max-width: 180px; border-radius: 12px;
-    border: 1px solid rgba({ACCENT_RGB},0.3);
-    box-shadow: 0 0 30px rgba({ACCENT_RGB},0.2), 0 0 60px rgba({ACCENT_RGB},0.1);
-}}
-[data-testid="stBottomBlockContainer"] {{
-    background: linear-gradient(180deg, rgba(10,10,15,0) 0%, #0a0a0f 40%);
+section[data-testid="stMain"],
+section[data-testid="stMain"] > div,
+[data-testid="stMainBlockContainer"] {{
+    overflow: visible !important;
 }}
 
-/* === GUARDIANAI DASHBOARD SHELL === */
-/* These rules deliberately target Streamlit's stable test ids so the layout
-   remains a dashboard rather than falling back to the default Streamlit UI. */
-.block-container {{
-    max-width: 1480px !important;
-    padding: .55rem 1.05rem 4.25rem !important;
+/* === LEFT STATUS / ACTION PANEL === */
+.st-key-left_panel_scroll {{
+    height: calc(100vh - 300px) !important;
+    max-height: calc(100vh - 300px) !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    padding-right: 0.4rem !important;
 }}
-section[data-testid="stSidebar"] {{
-    min-width: 238px !important;
+.st-key-left_panel_scroll::-webkit-scrollbar {{
+    width: 7px !important;
 }}
-section[data-testid="stSidebar"] [data-testid="stSidebarContent"] {{
-    padding: 0.5rem 0.65rem 1rem;
+.st-key-left_panel_scroll::-webkit-scrollbar-thumb {{
+    background: rgba({ACCENT_RGB}, 0.28);
+    border-radius: 10px;
 }}
-.st-key-chat_shell {{
-    background: linear-gradient(145deg, rgba(20,23,38,.96), rgba(8,11,20,.94));
-    border: 1px solid rgba(166,182,225,.27);
-    border-radius: 18px;
-    padding: 1rem .9rem .65rem;
-    box-shadow: inset 0 1px 0 rgba(255,255,255,.035), 0 16px 45px rgba(0,0,0,.18);
+
+/* === RIGHT CHAT PANEL === */
+.st-key-right_chat_shell {{
+    height: calc(100vh - 300px) !important;
+    max-height: calc(100vh - 300px) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: hidden !important;
 }}
-.st-key-rp_root {{
-    background: transparent;
-    max-height: calc(100vh - 165px);
-    padding-right: .1rem;
+.st-key-right_chat_messages {{
+    flex: 1 1 auto !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    padding-right: 0.5rem !important;
+    min-height: 0 !important;
 }}
-.st-key-rp_health, .st-key-rp_actions, .st-key-rp_tips {{
-    background: linear-gradient(145deg, rgba(23,27,43,.93), rgba(12,16,29,.92));
-    border: 1px solid rgba(166,182,225,.22);
-    border-radius: 15px;
-    padding: .8rem .8rem;
-    margin-bottom: .7rem;
+.st-key-right_chat_messages::-webkit-scrollbar {{
+    width: 8px !important;
 }}
-.guardian-topbar {{
-    display: flex; align-items:center; justify-content:space-between; gap:1rem;
-    padding: .15rem 0 .7rem;
+.st-key-right_chat_messages::-webkit-scrollbar-thumb {{
+    background: rgba({ACCENT_RGB},0.3) !important;
+    border-radius: 10px;
 }}
-.guardian-wordmark {{ color:#f8f8fc; font-size:1.45rem; font-weight:800; letter-spacing:-.04em; }}
-.guardian-wordmark span {{ color:{ACCENT}; }}
-.guardian-tagline {{ color:#b8bdc9; font-size:.78rem; margin-top:-.15rem; }}
-.top-pills {{ display:flex; align-items:center; gap:.6rem; flex-wrap:wrap; justify-content:flex-end; }}
-.top-pill {{
-    color:#ececf3; border:1px solid rgba(166,182,225,.2); border-radius:999px;
-    background:rgba(10,13,24,.65); padding:.58rem .95rem; font-size:.82rem;
+
+/* === FIXED CHAT INPUT === */
+.stChatInput {{
+    flex: 0 0 auto !important;
+    position: relative !important;
+    bottom: auto !important;
+    background: rgba(10, 12, 18, 0.9) !important;
+    padding-top: 0.6rem !important;
+    z-index: 10;
 }}
-.top-pill-accent {{ color:#ff6ab5; border-color:rgba({ACCENT_RGB},.35); }}
-.assistant-heading {{ display:flex; align-items:center; justify-content:space-between; gap:1rem; }}
-.assistant-heading h2 {{ font-size:1.22rem; margin:0; color:#f6f6f8; }}
-.assistant-heading h2 span {{ color:{ACCENT}; }}
-.online-badge {{ color:#e8ebf1; border:1px solid rgba(166,182,225,.2); background:#0b0f1a; border-radius:999px; padding:.45rem .75rem; font-size:.76rem; }}
-.online-badge i {{ width:9px; height:9px; display:inline-block; background:#28d87a; border-radius:50%; margin-right:7px; }}
-.chat-subtitle {{ margin:.25rem 0 .8rem; }}
-.st-key-chat_scroll {{ height:calc(100vh - 355px) !important; min-height:280px !important; overflow-y:auto !important; }}
-.st-key-chat_scroll > div {{ min-height:0 !important; overflow-y:auto !important; }}
-div[data-testid="stChatMessage"] {{ max-width:86%; padding:.55rem .7rem !important; border:1px solid rgba(166,182,225,.15); border-radius:16px !important; background:linear-gradient(145deg, rgba(27,32,49,.92), rgba(17,21,34,.92)) !important; }}
-div[data-testid="stChatMessage"][data-testid="stChatMessage"]:has([data-testid="stChatMessageContent"]), div[data-testid="stChatMessage"] {{ margin-bottom:.75rem !important; }}
-[data-testid="stChatMessageContent"] {{ color:#e9e9ef; }}
-.stChatInput textarea {{ min-height:3.5rem !important; padding:.8rem 1rem !important; background:#131827 !important; }}
-.st-key-main_chat_input {{ margin-top: .85rem; }}
-.st-key-main_chat_input textarea {{ min-height: 3.8rem !important; }}
-section.main {{ overflow: hidden; }}
+
+/* === DASHBOARD CARD STYLES === */
+.left-panel-card,
+.right-panel-card {{
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 14px;
+    padding: 1rem;
+    margin-bottom: 0.8rem;
+}}
+
+/* === CLEAR OLD OVERFLOW BLOCKERS === */
+section.main {{ overflow: visible !important; }}
 [data-testid="stMainBlockContainer"] {{
-    max-height: 100vh;
-    overflow: hidden;
-    padding-bottom: .75rem !important;
-}}
-.st-key-rp_root {{ overflow: hidden !important; }}
-.st-key-left_nav {{
-    background: linear-gradient(180deg, rgba(20,23,38,.96), rgba(11,13,24,.96));
-    border: 1px solid rgba(166,182,225,.18);
-    border-radius: 15px;
-    padding: .45rem .4rem .8rem;
-    min-height: calc(100vh - 1.25rem);
-}}
-.st-key-left_nav .stButton > button {{
-    text-align: left; min-height: 2.35rem; color: #eef0f7;
-    background: transparent; border: 1px solid transparent;
-    border-radius: 9px; font-size: .82rem;
-}}
-.st-key-left_nav .stButton > button:hover {{
-    background: rgba({ACCENT_RGB},.12); border-color: rgba({ACCENT_RGB},.36);
-}}
-section[data-testid="stSidebar"] .stButton > button {{
-    text-align:left; color:#eff0f4; border:1px solid transparent; background:transparent;
-    min-height:2.7rem;
-}}
-section[data-testid="stSidebar"] .stButton > button:hover {{
-    border-color:rgba({ACCENT_RGB},.45); background:rgba({ACCENT_RGB},.12);
-}}
-@media (max-width: 900px) {{
-    .block-container {{ padding: .65rem .75rem 4.5rem !important; }}
-    .guardian-topbar {{ align-items:flex-start; flex-direction:column; }}
-    .top-pills {{ justify-content:flex-start; }}
-    .st-key-chat_scroll {{ height:440px !important; }}
+    max-height: none !important;
+    overflow: visible !important;
 }}
 </style>
 """
@@ -838,6 +789,16 @@ def call_conversational_gemini(user_message: str) -> str:
         # Keep technical provider errors out of the emergency-facing chat UI.
         # The exception class is retained in the server log for debugging.
         print(f"Gemini conversational request failed: {type(exc).__name__}: {exc}")
+        if (
+            getattr(exc, "status_code", None) == 429
+            or "RESOURCE_EXHAUSTED" in str(exc)
+        ):
+            return (
+                "GuardianAI's Gemini usage limit has been reached for now. "
+                "Please try again after the quota resets, or use a Gemini "
+                "API key with available billing/quota. If this is urgent, "
+                "call 1122 or seek immediate medical help."
+            )
         return (
             "I'm temporarily unable to reach the medical guidance service. "
             "Please try again in a moment. If this is urgent, call 1122 "
@@ -1600,57 +1561,190 @@ def main():
     init_state()
     st.markdown(CSS, unsafe_allow_html=True)
 
-    # Keep navigation inside the page.  A native Streamlit sidebar can be
-    # collapsed by the browser and was leaving an empty, unusable column.
-    nav_col, content_col = st.columns([1.05, 4.6], gap="large")
-    nav_panel = nav_col.container(border=False, key="left_nav")
-    render_sidebar(nav_panel)
+    # Sidebar Navigation
+    st.sidebar.markdown("### 🛡️ GuardianAI")
+    st.sidebar.markdown("---")
+    
+    pages = {
+        "💬 Assistant": "Assistant",
+        "🏥 Hospitals": "Hospitals",
+        "📋 Reports": "Reports",
+        "ⓘ About": "About",
+    }
+    
+    for label, page_name in pages.items():
+        if st.sidebar.button(
+            label,
+            key=f"nav_{page_name}",
+            use_container_width=True,
+            type="primary" if st.session_state.nav_page == page_name else "secondary",
+        ):
+            st.session_state.nav_page = page_name
+            st.rerun()
+    
+    # Location Settings
+    st.sidebar.markdown("---")
+    st.sidebar.markdown("### 📍 Location")
+    with st.sidebar.expander("Settings"):
+        lat = st.number_input(
+            "Latitude",
+            min_value=-90.0,
+            max_value=90.0,
+            value=st.session_state.latitude,
+            step=0.01,
+        )
+        lon = st.number_input(
+            "Longitude",
+            min_value=-180.0,
+            max_value=180.0,
+            value=st.session_state.longitude,
+            step=0.01,
+        )
+        if st.button("📍 Karachi", use_container_width=True):
+            st.session_state.latitude = KARACHI_LAT
+            st.session_state.longitude = KARACHI_LON
+            st.rerun()
+        
+        st.session_state.latitude = lat
+        st.session_state.longitude = lon
+    
+    # Emergency Box
+    st.sidebar.markdown("---")
+    with st.sidebar.container(border=True):
+        st.markdown(
+            "<h4 style='color:#f44336;margin:0;'>🚨 EMERGENCY</h4>"
+            "<p style='color:rgba(255,255,255,0.6);margin:0.5rem 0;font-size:0.9rem;'>In a life-threatening situation?</p>"
+            "<p style='color:#ff9abf;font-weight:700;'>Call: <strong>1122</strong></p>",
+            unsafe_allow_html=True,
+        )
+    
+    # Main Content
     page = st.session_state.nav_page
+    
+    if page == "Assistant":
+        # Header
+        col1, col2 = st.columns([3, 1])
+        with col1:
+            st.markdown("## 🛡️ Guardian**AI** Assistant")
+        with col2:
+            if st.button("📍 Find Hospitals", use_container_width=True):
+                result = run_find_hospitals()
+                _append_msg("assistant", result)
+                st.rerun()
 
-    with content_col:
-        if page == "Assistant":
-            render_header()
-            if st.session_state.show_right_panel:
-                chat_col, right_col = st.columns([3, 1], gap="medium")
-            else:
-                chat_col = st.container()
-                right_col = None
+        st.markdown("---")
 
-            with chat_col:
-                render_chat_area()
-                # Nesting chat_input in this column makes it an inline control
-                # rather than Streamlit's page-wide, fixed-bottom input.
-                submitted = st.chat_input(
+        left_col, right_col = st.columns([0.82, 2.18])
+
+        with left_col:
+            with st.container(key="left_panel_scroll"):
+                st.markdown("<div class='left-panel-card'><h3 style='margin:0; color:#fff;'>❤️ Status</h3></div>", unsafe_allow_html=True)
+                sev = st.session_state.severity
+                if sev:
+                    color_map = {"LOW": "🟢", "MODERATE": "🟡", "HIGH": "🔴", "CRITICAL": "🔴"}
+                    icon = color_map.get(sev, "⚪")
+                    st.markdown(f"<div class='left-panel-card'><div style='font-size:0.8rem; color:rgba(255,255,255,0.6);'>Status</div><div style='font-size:2.1rem; font-weight:800; color:#fff; margin-top:0.3rem;'>{icon} {sev}</div></div>", unsafe_allow_html=True)
+                else:
+                    st.markdown("<div class='left-panel-card'><div style='font-size:0.8rem; color:rgba(255,255,255,0.6);'>Status</div><div style='font-size:2.1rem; font-weight:800; color:#fff; margin-top:0.3rem;'>⚪ Monitoring</div></div>", unsafe_allow_html=True)
+
+                st.markdown("<div class='left-panel-card'><h3 style='margin:0; color:#fff;'>⚡ Actions</h3></div>", unsafe_allow_html=True)
+                if st.button("🏥 Hospitals", use_container_width=True, key="qa1"):
+                    result = run_find_hospitals()
+                    _append_msg("assistant", result)
+                    st.rerun()
+                if st.button("📋 First Aid", use_container_width=True, key="qa2"):
+                    response = call_conversational_gemini("Give a brief first-aid guide for common emergencies.")
+                    _append_msg("assistant", response)
+                    st.rerun()
+                if st.button("📞 Contacts", use_container_width=True, key="qa3"):
+                    _append_msg("assistant", "**Emergency Contacts:**\n\n🚑 Rescue 1122\n🚑 Edhi Foundation: 115")
+                    st.rerun()
+                if st.button("💡 Tips", use_container_width=True, key="qa4"):
+                    _append_msg("assistant", "**Health Tips:**\n\n✓ Keep a first-aid kit\n✓ Learn CPR\n✓ Stay hydrated")
+                    st.rerun()
+
+                st.markdown("<div style='height: 10px;'></div>", unsafe_allow_html=True)
+                if st.button("🚨 Emergency Help", use_container_width=True, key="qa_emergency", type="primary"):
+                    _append_msg("assistant", "**Emergency Help:**\n\n🚑 Call 1122 immediately if there is severe bleeding, chest pain, fainting, or difficulty breathing.\n\nIf the situation is life-threatening, seek urgent medical help now.")
+                    st.rerun()
+
+        with right_col:
+            with st.container(key="right_chat_shell"):
+                with st.container(key="right_chat_messages"):
+                    messages = st.session_state.messages
+                    for msg in messages:
+                        avatar = "🛡️" if msg["role"] == "assistant" else "👤"
+                        with st.chat_message(msg["role"], avatar=avatar):
+                            st.write(msg["content"])
+                            if msg.get("time"):
+                                st.caption(f"*{msg['time']}*")
+
+                chat_value = st.chat_input(
                     "Ask GuardianAI about a health concern...",
-                    key="main_chat_input",
                     accept_file=True,
-                    file_type=["jpg", "jpeg", "png"],
-                    width="stretch",
+                    key="guardian_chat_input",
                 )
-                if submitted is not None:
-                    files = submitted.files or []
-                    handle_chat_input(
-                        submitted.text or "", files[0] if files else None
-                    )
-            if right_col is not None:
-                with right_col:
-                    render_right_panel()
+                if chat_value is not None:
+                    if hasattr(chat_value, "text"):
+                        user_input = chat_value.text.strip()
+                        uploaded_file = chat_value.files[0] if getattr(chat_value, "files", None) else None
+                    else:
+                        user_input = str(chat_value).strip()
+                        uploaded_file = None
 
-        elif page == "Hospitals":
-            render_hospitals_page()
-            render_footer()
-        elif page == "Reports":
-            render_reports_page()
-            render_footer()
-        elif page == "About":
-            render_about_page()
-            render_footer()
-        elif page in ("Profile", "Settings"):
-            title = "Your Profile" if page == "Profile" else "Settings"
-            st.markdown(f"## {title}")
-            st.info("This demo keeps your information only for the current session. "
-                    "Location settings are available in the navigation panel.")
-            render_footer()
+                    if user_input:
+                        handle_chat_input(user_input, uploaded_file)
+                    elif uploaded_file is not None:
+                        handle_chat_input("Please analyze this image.", uploaded_file)
+    
+    elif page == "Hospitals":
+        st.markdown("## 🏥 Nearby Hospitals")
+        st.markdown("---")
+        with st.spinner("Searching..."):
+            hospital_text = run_find_hospitals()
+        st.info(hospital_text)
+    
+    elif page == "Reports":
+        st.markdown("## 📋 Incident Reports")
+        st.markdown("---")
+        result = st.session_state.get("last_result")
+        if not result:
+            st.info("No analysis yet. Go to Assistant and describe an emergency.")
+        else:
+            report = generate_report_text()
+            st.markdown(report)
+            st.download_button("📥 Download", report, file_name="guardianai_report.md", mime="text/markdown")
+    
+    elif page == "About":
+        st.markdown("""
+## 🛡️ GuardianAI
+
+AI-powered emergency response system providing immediate first-aid guidance.
+
+### How It Works
+1. Describe your health concern
+2. GuardianAI assesses urgency
+3. For emergencies, 4 agents work together
+4. Get unified assessment with actionable guidance
+
+### Architecture
+- **Framework:** LangGraph + Streamlit
+- **Models:** Google Gemini
+- **Knowledge Base:** Pinecone RAG
+- **Location:** Hospital database
+
+### Built For
+Alibaba Cloud Hackathon — AI for Emergency Response
+        """)
+    
+    # Footer
+    st.markdown("---")
+    st.markdown(
+        "<p style='text-align:center;color:rgba(255,255,255,0.4);font-size:0.8rem;'>"
+        "⚠️ GuardianAI is not a substitute for professional medical advice."
+        "</p>",
+        unsafe_allow_html=True,
+    )
 
 
 if __name__ == "__main__":
